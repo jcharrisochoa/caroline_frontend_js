@@ -1,22 +1,12 @@
-//import './style.css'
-import meiviLogo from './src/assets/img/meivi-logo.png'
+import './style.css'
 import traduccion from './src/lang/es.json';
+import {meiviLogin,hello}  from './src/components/login/js/login';
 
-document.querySelector("#imgLogo").src = meiviLogo;
-document.querySelector("[meivi-title]").innerHTML =traduccion.usuario;
+const title = document.querySelector("[meivi-title]");
+title.innerHTML =traduccion.title;
 
-export default (function () {
-  window.onload = function () {
-    
-    HSBsValidation.init('.js-validate', {
-      onSubmit: data => {
-        data.event.preventDefault()
-        alert('Submited')
-      }
-    });
+//Define custom tag html
+customElements.define("meivi-login",meiviLogin);
 
-    new HSTogglePassword('.js-toggle-password')
-
-  }
-})()
-
+const bntHola = document.getElementById("btn_hola");
+bntHola.addEventListener("click",hello);
