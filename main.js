@@ -1,12 +1,12 @@
 import './style.css'
 import traduccion from './src/lang/es.json';
-import {meiviLogin,hello}  from './src/components/login/js/login';
+import  {MeiviLogo}  from './src/components/shared/logo';
+import {Router} from './src/routes/router.js'; //clase
+import {PATHS} from './src/routes/routes.js'; //path
 
-const title = document.querySelector("[meivi-title]");
-title.innerHTML =traduccion.title;
+document.querySelector("[meivi-title]").innerHTML =traduccion.title;
+customElements.define("meivi-logo",MeiviLogo);
 
-//Define custom tag html
-customElements.define("meivi-login",meiviLogin);
-
-const bntHola = document.getElementById("btn_hola");
-bntHola.addEventListener("click",hello);
+export const ROUTER = new Router(PATHS);
+//ROUTER.init();
+console.log(ROUTER)

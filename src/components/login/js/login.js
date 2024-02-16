@@ -1,5 +1,6 @@
 import meiviLogo from '../../../assets/img/meivi-logo.png'
 
+//Componente
 export class meiviLogin extends HTMLElement{
 
     title;
@@ -112,16 +113,35 @@ export class meiviLogin extends HTMLElement{
         HSBsValidation.init('.js-validate', {
         onSubmit: data => {
             data.event.preventDefault()
-            alert('Submited')
+            userValidated();
         }
         });
         new HSTogglePassword('.js-toggle-password')
     };
-
-    document.querySelector("meivi-login").remove();
 })();
 
 export function hello (){
     console.log("hello");
 }
+
+
+
+function userValidated(){
+  let btnLogin =  document.querySelector('button[type="submit"]');
   
+  btnLogin.setAttribute('disabled',true)
+  let url = 'https://dog.ceo/api/breeds/image/random';
+
+  fetch(url).then(response => response.json()).then(data=>{
+    console.log(data);
+    if(data.status === 'success'){
+      alert('Redirect');
+    }
+    else{
+      btnLogin.setAttribute('disabled',false);
+    }
+  });
+}
+
+
+
