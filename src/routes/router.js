@@ -1,54 +1,24 @@
 export class Router {
-    constructor(paths) {
-        this.paths = paths;
-        this.initRouter();
-    }
 
-    initRouter() {
-        const { location: { pathname = '/' } } = window;
-        const uri = pathname === '/' ? 'login' : pathname.replace('/','');
-        console.log(location);
-        console.log(uri);
-        this.load(uri);
-    }
-
-    load(page = "login") {
-        const { paths } = this;
-        console.log(paths)
-        const { path, template } = paths[page] || paths.error;
-        const $CONTAINER = document.querySelector("#content");
-
-    
-        //$CONTAINER.innerHTML = template;
-        window.history.pushState({}, "done", path);
-
-        fetch(template)
-            .then(response => response.text())
-            .then(data => {
-                console.log(data);
-               if(template != '<h1>Login</h1>')
-                    $CONTAINER.innerHTML = data;
-            })
-            .catch(error => console.error('Error fetching template:', error));
-
-
-    }
-
-    /*constructor(routes) {
+    constructor(routes) {
         this.routes = routes;
     }
 
     init() {
         window.addEventListener('hashchange', this.hashChanged.bind(this));
         this.hashChanged();
+        //this.loadDefaultRoute();
     }
 
     hashChanged() {
         const hash = window.location.hash.substring(1);
-        const route = this.routes[hash];
-        const content = document.getElementById('content');
+        const route = hash ? this.routes[hash] : this.routes['/'];
+        //const content = (hash != 'layout') ? document.getElementById('contenido'):document.getElementById('contentLayout');
+        console.log(document.getElementById('contentLayout'))
+        const content = document.getElementById('contenido');
         if (route) {
             this.loadContent(route.template, content);
+            this.loadScript(route.script);
             route.callback();
         } else {
             content.innerHTML = 'Page not found';
@@ -62,6 +32,21 @@ export class Router {
                 targetElement.innerHTML = data;
             })
             .catch(error => console.error('Error fetching template:', error));
-    }*/
+    }
+
+    loadScript(scriptUrl) { 
+        if (this.currentScript) {
+            this.currentScript.remove();
+        }
+
+        const script = document.createElement('script');
+        script.src = scriptUrl;
+        document.body.appendChild(script);
+        this.currentScript = script;
+    }
+
+    loadDefaultRoute() {
+        //--window.location.hash = '/';
+    }
 
 }

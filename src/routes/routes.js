@@ -1,25 +1,26 @@
-export const PATHS = {
-    login: {
+export const routes = {
+    '/': {
         path: '/',
-        template: '<h1>Login</h1>'
+        script: './src/module/login/login.js',
+        template: './src/module/login/login.html',
+        callback: function() {
+            console.log('Login route loaded');
+        }
     },
     layout:{
         path: '/layout',
-        template: './src/module/layout/index.html'
-    },
-    concat:{
-        path: '/',
-        template: './src/module/layout/index.html'
+        script: './src/module/layout/layout.js',
+        template: './src/module/layout/layout.html',
+        callback: function() {
+            console.log('Layout route loaded');
+        }
     },
     error:{
-        path: '/',
-        template: '<h1>Error</h1>'
-    },
-    /*layout: {
-        template: './src/module/layout/index.html',
+        path: '/error',
+        script: './src/module/error/error.js',
+        template: './src/module/error/error.html',
         callback: function() {
-           
+            console.log('Error route loaded');
         }
-    }*/
-
+    }
 };
