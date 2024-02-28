@@ -1,4 +1,4 @@
-export class Router {
+export class RouterMenu {
 
     constructor(routes) {
         this.routes = routes;
@@ -6,16 +6,14 @@ export class Router {
 
     init() {
         window.addEventListener('hashchange', this.hashChanged.bind(this));
-        this.hashChanged();
-        //this.loadDefaultRoute();
+        //this.hashChanged();
     }
 
     hashChanged() {
         const hash = window.location.hash.substring(1);
+        console.log(hash)
         const route = hash ? this.routes[hash] : this.routes['/'];
-        //const content = (hash != 'layout') ? document.getElementById('contenido'):document.getElementById('contentLayout');
-        console.log(document.getElementById('contentLayout'))
-        const content = document.getElementById('contenido');
+        const content = document.getElementById('contentLayout');
         if (route) {
             this.loadContent(route.template, content);
             this.loadScript(route.script);
@@ -38,15 +36,10 @@ export class Router {
         if (this.currentScript) {
             this.currentScript.remove();
         }
-
         const script = document.createElement('script');
+        script.type = 'module';
         script.src = scriptUrl;
         document.body.appendChild(script);
         this.currentScript = script;
     }
-
-    loadDefaultRoute() {
-        //--window.location.hash = '/';
-    }
-
 }
